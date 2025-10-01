@@ -1,2 +1,11 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+# dependencies
+node_modules
+
+# production build
+dist
+build
+
+# env files
+.env
