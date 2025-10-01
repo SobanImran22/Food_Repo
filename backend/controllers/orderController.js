@@ -6,7 +6,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // ✅ Place order
 const placeOrder = async (req,res)=>{
-    const frontend_url= "http://localhost:5173"; 
+    const frontend_url= "https://lahori-kababish-restaurent.netlify.app"; 
     
     try {
         // Line items bana rahe hain stripe checkout ke liye
