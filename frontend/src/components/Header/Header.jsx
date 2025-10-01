@@ -1,8 +1,8 @@
 import React from 'react'
 import './Header.css'
 import Tandori from "./../../assets/tandori.jpeg"
-import Gg from "./../../assets/gg.jpg"
-import E from "./../../assets/e.webp"
+import Fastfoodburger from "./../../assets/fastfoodburgur.jpeg"
+import Mix from "./../../assets/2.jpeg"
 
 
 const Header = () => {
@@ -11,13 +11,13 @@ const Header = () => {
       <div id="carouselExample" className="carousel slide">
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img src={Gg} className="d-block w-100" alt="slide1" />
+            <img src={Tandori} className="d-block w-100" alt="slide1" />
           </div>
           <div className="carousel-item">
-            <img src={Tandori} className="d-block w-100" alt="slide2" />
+            <img src={Fastfoodburger} className="d-block w-100" alt="slide2" />
           </div>
           <div className="carousel-item">
-            <img src={E} className="d-block w-100" alt="slide3" />
+            <img src={Mix} className="d-block w-100" alt="slide3" />
           </div>
         </div>
 
