@@ -6,6 +6,10 @@ import userRouter from "./routes/userRoute.js"
 import 'dotenv/config'
 import cartRouter from "./routes/cartRoute.js"
 import orderRouter from "./routes/orderRoute.js"
+// add with other imports
+import uploadRoute from "./routes/upload.js";
+
+
 
 const app = express()
 const port =4000
@@ -23,6 +27,15 @@ connectDB();
  app.use("/api/user",userRouter)
  app.use("/api/cart",cartRouter)
  app.use("/api/order",orderRouter)
+
+ // add upload route here
+app.use("/api/upload", uploadRoute);
+
+// optional error handler
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ message: err.message });
+});
 
 app.get("/",(req,res)=>{
     res.send("API Working ")
