@@ -6,7 +6,7 @@ import { StoreContext } from '../context/StoreContext';
 const FoodItem = ({ id, name, price, description, image }) => {
   const { cartItems, addToCart, removeFromCart, url } = useContext(StoreContext);
 
-  const safeImage = image ? url + "/images/" + image : assets.placeholder;
+  const safeImage = image ? image : assets.placeholder;
   const safeName = name || "Unnamed Dish";
   const safeDesc = description || "No description available";
   const safePrice = price || 0;
