@@ -1,14 +1,16 @@
-// backend/routes/upload.js
 import express from "express";
-import { uploadImage } from "../controllers/uploadController.js";
 import fileUpload from "express-fileupload";
+import { uploadImage } from "../controllers/uploadController.js";
 
 const router = express.Router();
 
-// enable file upload
-router.use(fileUpload({
-  useTempFiles: true
-}));
+// fileUpload middleware
+router.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+  })
+);
 
 // POST /api/upload
 router.post("/", uploadImage);

@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import './Add.css';
-import { assets } from '../../assets/assets';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import React, { useState } from "react";
+import "./Add.css";
+import { assets } from "../../assets/assets";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-const Add = ({ url }) => {
-  const [image, setImage] = useState(null);
+const Add = () => {
+  const [image, setImage] = useState(false);
   const [data, setData] = useState({
     name: "",
     description: "",
     price: "",
-    category: "Tandori Special"
+    category: "Tandori Special",
   });
 
   const onChangeHandler = (event) => {
@@ -21,54 +21,52 @@ const Add = ({ url }) => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-
     try {
-      let imageUrl = "";
-      if (image) {
-        const formData = new FormData();
-        formData.append("image", image);
+      // Step 1: upload image
+      const formData = new FormData();
+      formData.append("image", image);
 
-        // send image to backend upload API
-        const uploadRes = await axios.post(`${url}/api/upload`, formData, {
-          headers: { "Content-Type": "multipart/form-data" }
-        });
+      const uploadRes = await axios.post(
+        "https://food-repo.onrender.com/api/upload",
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
 
-        if (uploadRes.data.success) {
-          imageUrl = uploadRes.data.url; // Cloudinary URL
-        } else {
-          toast.error("Image upload failed");
-          return;
+      const imageUrl = uploadRes.data.url; // 👈 Cloudinary URL
+
+      // Step 2: save product with image URL
+      const response = await axios.post(
+        "https://food-repo.onrender.com/api/food/add",
+        {
+          name: data.name,
+          description: data.description,
+          price: Number(data.price),
+          category: data.category,
+          image: imageUrl,
         }
-      }
-
-      // now send product data + image URL to food API
-      const response = await axios.post(`${url}/api/food/add`, {
-        ...data,
-        price: Number(data.price),
-        image: imageUrl
-      });
+      );
 
       if (response.data.success) {
+        toast.success("Product added successfully ✅");
         setData({
           name: "",
           description: "",
           price: "",
-          category: "Tandori Special"
+          category: "Tandori Special",
         });
-        setImage(null);
-        toast.success(response.data.message);
+        setImage(false);
       } else {
-        toast.error(response.data.message);
+        toast.error("Failed to add product ❌");
       }
     } catch (err) {
-      console.error(err);
-      toast.error("Something went wrong");
+      console.error("Error:", err);
+      toast.error("Server error while adding product ❌");
     }
   };
 
   return (
-    <div className='add'>
-      <form className='flex-col' onSubmit={onSubmitHandler}>
+    <div className="add">
+      <form className="flex-col" onSubmit={onSubmitHandler}>
         <div className="add-img-upload flex-col">
           <p>Upload Image</p>
           <label htmlFor="image">
@@ -94,7 +92,6 @@ const Add = ({ url }) => {
             type="text"
             name="name"
             placeholder="Type here"
-            required
           />
         </div>
 
@@ -113,13 +110,17 @@ const Add = ({ url }) => {
         <div className="add-category-price">
           <div className="add-category flex-col">
             <p>Product category</p>
-            <select onChange={onChangeHandler} name="category" value={data.category}>
+            <select
+              onChange={onChangeHandler}
+              name="category"
+              value={data.category}
+            >
               <option value="Tandori Special">Tandori Special</option>
               <option value="Pizza's">Pizza's</option>
               <option value="Burger's">Burger's</option>
               <option value="Naan Bread's">Naan Bread's</option>
               <option value="Side's">Side's</option>
-              <option value="Curry Dishe's">Curry Dishe's </option>
+              <option value="Curry Dishe's">Curry Dishe's</option>
               <option value="Sizzling Kabab">Sizzling Kabab</option>
               <option value="Drinks">Drinks</option>
             </select>
@@ -130,15 +131,16 @@ const Add = ({ url }) => {
             <input
               onChange={onChangeHandler}
               value={data.price}
-              type="number"
+              type="Number"
               name="price"
               placeholder="£20"
-              required
             />
           </div>
         </div>
 
-        <button type="submit" className="add-btn">ADD</button>
+        <button type="submit" className="add-btn">
+          ADD
+        </button>
       </form>
     </div>
   );
