@@ -4,7 +4,7 @@ import {assets} from '../../assets/assets'
 const Navbar = () => {
   return (
     <div className='navbar'>
-      <img className='logo' src={assets.logo} alt="" />
+      <h1>Lahori Kababish</h1>
       
     </div>
   )
