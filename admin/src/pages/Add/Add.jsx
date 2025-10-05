@@ -122,7 +122,7 @@ const Add = () => {
               <option value="Side's">Side's</option>
               <option value="Rice">Rice</option>
               <option value="Sizzling Kabab">Sizzling Kabab</option>
-              <option value="Drinks">Drinks</option>
+              <option value="Special Deals">Special Deals</option>
             </select>
           </div>
 
