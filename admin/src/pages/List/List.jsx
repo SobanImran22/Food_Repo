@@ -47,7 +47,7 @@ else{
 <img src={item.image ? item.image : assets.placeholder} alt={item.name} />
 <p>{item.name}</p>
 <p>{item.category}</p>
-<p>£{item.price}</p>
+<p>£{item.price.toFixed(2)}</p>
 <p className='cursor' onClick={()=>removeFood(item._id)}>X</p>
               </div>
              )
