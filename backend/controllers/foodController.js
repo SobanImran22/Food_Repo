@@ -50,22 +50,23 @@ const removeFood = async (req, res) => {
 
 
 
-// add at bottom of file (above exports)
-const fixPrices = async (req, res) => {
+// Fix prices to 2 decimals
+
+
+export const fixPrices = async (req, res) => {
   try {
-    const foods = await foodModel.find({});
-    for (const food of foods) {
-      const corrected = parseFloat(Number(food.price).toFixed(2));
-      food.price = corrected;
-      await food.save();
+    const foods = await Food.find();
+    for (let item of foods) {
+      if (typeof item.price === "number") {
+        item.price = parseFloat(item.price.toFixed(2)); // fix 2 decimal
+        await item.save();
+      }
     }
-    return res.json({ success: true, message: "All product prices fixed to 2 decimals" });
+    res.json({ success: true, message: "All product prices fixed to 2 decimals" });
   } catch (err) {
-    console.error("fixPrices error:", err);
-    return res.status(500).json({ success: false, message: "Error fixing prices", error: err.message });
+    console.error("Error fixing prices:", err);
+    res.status(500).json({ success: false, message: "Error fixing prices" });
   }
 };
 
-
-
-export { addFood, listFood, removeFood,fixPrices  };
+export { addFood, listFood, removeFood, };
