@@ -50,23 +50,29 @@ const removeFood = async (req, res) => {
 
 
 
-// Fix prices to 2 decimals
 
-
-export const fixPrices = async (req, res) => {
+// ✅ Fix prices with rounding safely
+const fixPrices = async (req, res) => {
   try {
-    const foods = await Food.find();
-    for (let item of foods) {
-      if (typeof item.price === "number") {
-        item.price = parseFloat(item.price.toFixed(2)); // fix 2 decimal
-        await item.save();
+    const foods = await foodModel.find({});
+    if (!foods || foods.length === 0) {
+      return res.json({ success: false, message: "No products found" });
+    }
+
+    for (let food of foods) {
+      // check if price is a number
+      if (typeof food.price === "number") {
+        food.price = parseFloat(food.price.toFixed(2));
+        await food.save();
       }
     }
-    res.json({ success: true, message: "All product prices fixed to 2 decimals" });
-  } catch (err) {
-    console.error("Error fixing prices:", err);
-    res.status(500).json({ success: false, message: "Error fixing prices" });
+
+    res.json({ success: true, message: "✅ All product prices fixed to 2 decimals!" });
+  } catch (error) {
+    console.error("Error fixing prices:", error);
+    res.status(500).json({ success: false, message: error.message || "Error fixing prices" });
   }
 };
 
-export { addFood, listFood, removeFood, };
+
+export { addFood, listFood, removeFood, fixPrices };
