@@ -1,5 +1,5 @@
  import express from 'express'
- import { addFood,listFood ,removeFood} from '../controllers/foodController.js'
+ import { addFood,listFood ,removeFood, fixPrices} from '../controllers/foodController.js'
 
  import multer from "multer"
 
@@ -22,7 +22,7 @@ foodRouter.get("/list",listFood)
 foodRouter.post("/remove",removeFood);
 
 
-
+foodRouter.post("/fix-prices", fixPrices);
 
 
  export default foodRouter;

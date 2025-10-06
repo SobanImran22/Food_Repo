@@ -27,7 +27,7 @@ const Cart = () => {
                 <div key={index} className='cart-items-title cart-items-item'>
                   <img src={item.image ? item.image : assets.placeholder} alt={item.name} />
                   <p>{item.name}</p>
-                  <p>£{item.price}</p>
+                  <p>£{item.price.toFixed(2)}</p>
                   <p>{cartItems[item._id]}</p>
                   <p>£{item.price * cartItems[item._id]}</p>
                   <p onClick={() => removeFromCart(item._id)} className='cross'>X</p>

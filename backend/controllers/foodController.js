@@ -47,4 +47,25 @@ const removeFood = async (req, res) => {
   }
 };
 
-export { addFood, listFood, removeFood };
+
+
+
+// add at bottom of file (above exports)
+const fixPrices = async (req, res) => {
+  try {
+    const foods = await foodModel.find({});
+    for (const food of foods) {
+      const corrected = parseFloat(Number(food.price).toFixed(2));
+      food.price = corrected;
+      await food.save();
+    }
+    return res.json({ success: true, message: "All product prices fixed to 2 decimals" });
+  } catch (err) {
+    console.error("fixPrices error:", err);
+    return res.status(500).json({ success: false, message: "Error fixing prices", error: err.message });
+  }
+};
+
+
+
+export { addFood, listFood, removeFood,fixPrices  };
