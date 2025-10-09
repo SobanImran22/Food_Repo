@@ -2,7 +2,7 @@ import React from 'react'
 import './Header.css'
 import Tandori from "./../../assets/tandori.jpeg"
 import Fastfoodburger from "./../../assets/fastfoodburgur.jpeg"
-import Mix from "./../../assets/2.jpeg"
+import Mix from "./../../assets/3.png"
 
 
 const Header = () => {
