@@ -8,7 +8,8 @@ const StoreContextProvider = (props) => {
   const [token, setToken] = useState("");
   const [food_list, setFoodList] = useState([]);
 
-   const url = "https://www.lahorikebabish.co.uk/"; // Correct base URL
+   const url = "https://food-repo.onrender.com"; // 👈 your Render backend URL
+
 
   // ✅ Fetch food list from backend
   const fetchFoodList = async () => {
@@ -61,15 +62,17 @@ const StoreContextProvider = (props) => {
     fetchFoodList();
   }, []);
 
-  const contextValue = {
-    food_list,
-    cartItems,
-    addToCart,
-    removeFromCart,
-    getTotalCartAmount,
-    token,
-    setToken,
-  };
+ const contextValue = {
+  food_list,
+  cartItems,
+  addToCart,
+  removeFromCart,
+  getTotalCartAmount,
+  token,
+  setToken,
+  url, // 👈 add this line
+};
+
 
   return (
     <StoreContext.Provider value={contextValue}>
