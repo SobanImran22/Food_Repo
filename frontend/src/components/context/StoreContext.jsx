@@ -8,6 +8,8 @@ const StoreContextProvider = (props) => {
   const [token, setToken] = useState("");
   const [food_list, setFoodList] = useState([]);
 
+   const url = "https://www.lahorikebabish.co.uk/"; // Correct base URL
+
   // ✅ Fetch food list from backend
   const fetchFoodList = async () => {
     try {
